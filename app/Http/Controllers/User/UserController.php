@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Traits\BaseDestroy\BaseDestroyController;
+use App\Http\Controllers\Traits\BaseShow\BaseShowController;
 use App\Http\Controllers\Traits\GetClass\GetClassController;
 use App\Http\Requests\UserStorePostRequest;
 use App\Http\Requests\UserUpdatePostRequest;
@@ -13,48 +14,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class UserController
 {
-    use GetClassController, BaseDestroyController;
-
-    public function index(): JsonResponse
-    {
-        $validFields = $this->getClass()::make()->getFillable();
-        array_push($validFields, 'id');
-
-        $resource = QueryBuilder::for($this->getClass()::make())
-            ->allowedFields($validFields)
-            ->get();
-
-        return response()
-            ->json(
-                $resource,
-                200
-            );
-    }
-
-    public function show(int $id): JsonResponse
-    {
-        $validFields = $this->getClass()::make()->getFillable();
-        array_push($validFields, 'id');
-
-        $resource = QueryBuilder::for($this->getClass()::make())
-            ->where('id', $id)
-            ->allowedFields($validFields)
-            ->get();
-
-        return is_null($resource)
-            ?
-            response()
-                ->json(
-                    null,
-                    204
-                )
-            :
-            response()
-                ->json(
-                    $resource,
-                    200
-                );
-    }
+    use BaseShowController, GetClassController, BaseDestroyController;
 
     public function store(UserStorePostRequest $request): JsonResponse
     {
