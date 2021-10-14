@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Address;
 use App\Http\Controllers\Traits\BaseDestroy\BaseDestroyController;
 use App\Http\Controllers\Traits\BaseShow\BaseShowController;
 use App\Http\Controllers\Traits\RequestValidation\RequestValidationController;
+use App\Http\Requests\AddressStorePostRequest;
+use App\Http\Requests\AddressUpdatePostRequest;
 use Illuminate\Http\JsonResponse;
 
 class AddressController
