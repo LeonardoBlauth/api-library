@@ -23,6 +23,13 @@ trait RequestValidationController
     {
         $resource = $this->findResourceById($id);
 
-        return $resource->fill($request->validated());
+        $resource->fill($request->validated());
+        $resource->save();
+
+        return response()
+            ->json(
+                $resource,
+                200
+            );
     }
 }
